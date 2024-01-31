@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  labels:
+    app: demo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: demo-app
+          image: companycr01.azurecr.io/demo-app:$(Build.BuildId)       
+          ports:
+            - name: http
+              containerPort: 8800
+              protocol: TCP
+          env:
+            - name: REPLICAS
+              value: 2
+            - name: HTTP_LISTEN_PORT
+              value: 8800
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app
+  labels:
+    app: demo-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8800
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: demo-app' | Set-Content $(Agent.TempDirectory)/manifest.yaml
