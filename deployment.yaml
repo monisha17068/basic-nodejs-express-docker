@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: demo-app
-          image: chitralekhapoc.azurecr.io/chitra-repo:33
+          image: lekhaacrdemo.azurecr.io/lekha-repo:latest
           ports:
             - name: http
               containerPort: 3000
@@ -26,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-app-nodeport
+  name: demo-app
   labels:
     app: demo-app
 spec:
