@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://msipoc.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_e38a74f42e704b9590881466bbbae817 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_bc44ef30f38a4391a55c185fd8de316b }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_d39d01d483564773bcce930cc43bbc70 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_348b0b37f42745529c21a7e5b9c5c6bd }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: msipoc.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e38a74f42e704b9590881466bbbae817 }}/test-msi:${{ github.sha }}
+        tags: msipoc.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d39d01d483564773bcce930cc43bbc70 }}/test-msi:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'MyMSIFunctionApp'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_dd96ffc167ec491089fbcca80dc2a6b7 }}
-        images: 'msipoc.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e38a74f42e704b9590881466bbbae817 }}/test-msi:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b99442f6ddb94fedac480ea5c50b4338 }}
+        images: 'msipoc.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d39d01d483564773bcce930cc43bbc70 }}/test-msi:${{ github.sha }}'
